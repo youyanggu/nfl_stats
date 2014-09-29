@@ -30,13 +30,13 @@ def get_win_pct(record):
 
 
 def calc_score(off_rank, def_rank, home, win_pct_diff):
-	score = round((off_rank - def_rank) * 1.0 / (off_rank + 5), 2)
+	score = (off_rank - def_rank) * 1.0 / (off_rank + 5)
 	# Home field advantage
 	if not home:
 		score += abs(score)*0.25
 	# Better team advantage
 	score -= win_pct_diff*(CUR_WEEK / 2.0)
-	return score
+	return round(score, 2)
 
 
 class Team:
@@ -189,7 +189,7 @@ def update_team_stats(col_name, fname, teams, team_to_abbr):
 				for i in range(len(row)):
 					col_name_to_index[row[i]] = i
 			try:
-				rank = 33-int(row[0])
+				rank = int(row[0])
 			except Exception:
 				continue
 			team_abbr = team_to_abbr[row[get_index('Tm')]]
