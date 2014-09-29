@@ -19,16 +19,7 @@ RUSHING_DEF_FILE = 'years_2014_opp_rushing.csv'
 PASSING_OFF_FILE = 'years_2014_passing_passing.csv'
 RUSHING_OFF_FILE = 'years_2014_rushing_rushing_and_receiving.csv'
 RECEIVING_OFF_FILE = 'years_2014_receiving_receiving.csv'
-
-def get_win_pct(record):
-	if '/' in record:
-		w, l, t = [int(i) for i in record.split('/')]
-	elif '-' in record:
-		w, l, t = [int(i) for i in record.split('-')]
-	else:
-		return 0
-	games = w + l + t
-	return round(w * 1.0 / games, 2)
+STANDINGS_FILE = 'years_2014_standings.csv'
 			   	
 
 def generate_abbr_map(fname):
@@ -103,12 +94,35 @@ def update_player_stats(col_name, fname, teams, team_to_abbr):
 				continue
 			player = row[get_index('Player')]
 			team_abbr = row[get_index('Tm')]
+			if 'TM' in team_abbr:
+				continue # we ignore a player on multiple teams for now
 			team = teams[team_abbr]
 			team.set_player_stat(col_name, rank, player)
-			if col_name == 'pass_off':
-				record = row[get_index('QBrec')]
-				win_pct = get_win_pct(record)
-				team.set_win_pct(win_pct)
+
+def update_win_loss_record(fname, teams, team_to_abbr):
+	def get_index(name):
+		return col_name_to_index[name]
+
+	with open(fname, 'rU') as standings_file:
+		pass_def_reader = csv.reader(standings_file)
+		col_name_to_index = {}
+		count = 0
+		for row in pass_def_reader:
+			if len(row) == 0 or not row[0]:
+				continue
+			if row[0] == 'Tm':
+				for i in range(len(row)):
+					col_name_to_index[row[i]] = i
+			row[0] = row[0].translate(None, '*+') # Remove trailing * or +
+			if row[0] not in team_to_abbr:
+				continue
+			win_pct = float(row[get_index('W-L%')])
+			team = teams[team_to_abbr[row[0]]]
+			team.set_win_pct(win_pct)
+			count += 1
+	if count != 32:
+		raise Exception("Missing team")
+
 
 def update_teams(teams, team_to_abbr):
 	update_team_stats('pass_def', PASSING_DEF_FILE, teams, team_to_abbr)
@@ -116,6 +130,7 @@ def update_teams(teams, team_to_abbr):
 	update_player_stats('pass_off', PASSING_OFF_FILE, teams, team_to_abbr)
 	update_player_stats('rush_off', RUSHING_OFF_FILE, teams, team_to_abbr)
 	update_player_stats('recv_off', RECEIVING_OFF_FILE, teams, team_to_abbr)
+	update_win_loss_record(STANDINGS_FILE, teams, team_to_abbr)
 
 
 if __name__ == '__main__':
@@ -143,21 +158,21 @@ if __name__ == '__main__':
 
 	print "=============== PASSING MISMATCHES ==============="
 	rank = 1
-	for matchup in pass_mismatch[:10]:
+	for matchup in pass_mismatch:
 		print str(rank) + ') ' + matchup.print_pass()
 		print "   QB: " + matchup.qb()
 		rank += 1
 
 	print "=============== RUSHING MISMATCHES ==============="
 	rank = 1
-	for matchup in rush_mismatch[:10]:
+	for matchup in rush_mismatch:
 		print str(rank) + ') ' + matchup.print_rush()
 		print "   RB: " + matchup.rb()
 		rank += 1
 
 	print "=============== RECEIVING MISMATCHES ==============="
 	rank = 1
-	for matchup in recv_mismatch[:10]:
+	for matchup in recv_mismatch:
 		print str(rank) + ') ' + matchup.print_recv()
 		print "   WR: " + matchup.wr()
 		rank += 1

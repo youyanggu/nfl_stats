@@ -24,7 +24,7 @@ class Matchup:
 		if not self.is_off_at_home:
 			score -= abs(score)*0.25
 		# Better team advantage
-		score += self.win_pct_diff*(self.week / 2.0)
+		score += self.win_pct_diff*(self.week / 5.0)
 		return round(score, 2)
 
 	def qb(self):
