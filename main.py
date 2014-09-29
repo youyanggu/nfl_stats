@@ -8,6 +8,8 @@ Simple data-driven algorithm to predict weekly passing, rushing, and receiving l
 
 import csv
 import operator
+from team import Team
+from matchup import Matchup
 
 CUR_WEEK = 5
 TEAM_NAMES_FILE = 'team_names.csv'
@@ -27,120 +29,6 @@ def get_win_pct(record):
 		return 0
 	games = w + l + t
 	return round(w * 1.0 / games, 2)
-
-
-def calc_score(off_rank, def_rank, home, win_pct_diff):
-	score = (off_rank - def_rank) * 1.0 / (off_rank + 5)
-	# Home field advantage
-	if not home:
-		score += abs(score)*0.25
-	# Better team advantage
-	score -= win_pct_diff*(CUR_WEEK / 2.0)
-	return round(score, 2)
-
-
-class Team:
-	def __init__(self, team_abbr, team_name):
-		self.team_abbr = team_abbr
-		self.team_name = team_name
-
-		self.pass_def = None
-		self.rush_def = None
-		self.pass_off = None
-		self.rush_off = None
-		self.recv_off = None
-
-		self.qb = None
-		self.rb = None
-		self.wr = None
-
-		self.win_pct = None
-
-	def set_team_stat(self, col_name, rank):
-		if col_name == 'pass_def':
-			self.pass_def = rank
-		elif col_name == 'rush_def':
-			self.rush_def = rank
-		else:
-			raise Exception("Wrong column name")
-
-	def set_player_stat(self, col_name, rank, player):
-		if getattr(self, col_name) is None:
-			if col_name == 'pass_off':
-				self.pass_off = rank
-				self.qb = player
-			elif col_name == 'rush_off':
-				self.rush_off = rank
-				self.rb = player
-			elif col_name == 'recv_off':
-				self.recv_off = rank
-				self.wr = player
-			else:
-				raise Exception("Wrong column name")
-
-	def set_win_pct(self, win_pct):
-		if self.win_pct is None:
-			self.win_pct = win_pct
-
-	def __str__(self):
-		return self.team_name + \
-		      "\n    Win %: " + str(self.win_pct) + \
-		      "\n    Pass DEF: " + str(self.pass_def) + \
-		      "\n    Rush DEF: " + str(self.rush_def) + \
-		      "\n    Pass_OFF: " + str(self.pass_off) + \
-		      "\n    Rush OFF: " + str(self.rush_off) + \
-		      "\n    Recv OFF: " + str(self.recv_off)
-
-
-class Matchup:
-	def __init__(self, off_team, def_team, is_off_at_home):
-		self.off_team = off_team
-		self.def_team = def_team
-		self.is_off_at_home = is_off_at_home
-
-		win_pct_diff = off_team.win_pct - def_team.win_pct
-		self.pass_score = calc_score(off_team.pass_off, def_team.pass_def, is_off_at_home, win_pct_diff)
-		self.rush_score = calc_score(off_team.rush_off, def_team.rush_def, is_off_at_home, win_pct_diff)
-		self.recv_score = calc_score(off_team.recv_off, def_team.pass_def, is_off_at_home, win_pct_diff)
-
-	def qb(self):
-		return self.off_team.qb
-
-	def rb(self):
-		return self.off_team.rb
-
-	def wr(self):
-		return self.off_team.wr
-
-	def pass_str(self):
-		return "\n    Pass Score: " +  str(self.pass_score) + \
-				" (" + str(self.off_team.pass_off) + " vs " + str(self.def_team.pass_def) + ")"
-
-	def rush_str(self):
-		return "\n    Rush Score: " +  str(self.rush_score) + \
-			   		" (" + str(self.off_team.rush_off) + " vs " + str(self.def_team.rush_def) + ")"
-
-	def recv_str(self):
-		return "\n    Recv Score: " +  str(self.recv_score) + \
-			   		" (" + str(self.off_team.recv_off) + " vs " + str(self.def_team.pass_def) + ")"
-
-	def print_base(self):
-		if self.is_off_at_home:
-			return self.off_team.team_abbr + " O (H) vs. " + self.def_team.team_abbr + " D"
-		else:
-			return self.off_team.team_abbr + " O vs. " + self.def_team.team_abbr + " D (H)"
-
-	def print_pass(self):
-		return self.print_base() + self.pass_str()
-
-	def print_rush(self):
-		return self.print_base() + self.rush_str()
-
-	def print_recv(self):
-		return self.print_base() + self.recv_str()
-
-	def __str__(self):
-		return self.print_base() + self.pass_str() + self.rush_str() + self.recv_str()
 			   	
 
 def generate_abbr_map(fname):
@@ -246,31 +134,31 @@ if __name__ == '__main__':
 	for visit_team, home_team in schedule:
 		visit = teams[visit_team]
 		home = teams[home_team]
-		matchups.append(Matchup(visit, home, False))
-		matchups.append(Matchup(home, visit, True))
+		matchups.append(Matchup(visit, home, False, CUR_WEEK))
+		matchups.append(Matchup(home, visit, True, CUR_WEEK))
 
-	pass_mismatch = sorted(matchups, key=operator.attrgetter('pass_score'))
-	rush_mismatch = sorted(matchups, key=operator.attrgetter('rush_score'))
-	recv_mismatch = sorted(matchups, key=operator.attrgetter('recv_score'))
+	pass_mismatch = sorted(matchups, key=operator.attrgetter('pass_score'), reverse=True)
+	rush_mismatch = sorted(matchups, key=operator.attrgetter('rush_score'), reverse=True)
+	recv_mismatch = sorted(matchups, key=operator.attrgetter('recv_score'), reverse=True)
 
 	print "=============== PASSING MISMATCHES ==============="
 	rank = 1
 	for matchup in pass_mismatch[:10]:
 		print str(rank) + ') ' + matchup.print_pass()
-		print "    " + matchup.qb()
+		print "   QB: " + matchup.qb()
 		rank += 1
 
 	print "=============== RUSHING MISMATCHES ==============="
 	rank = 1
 	for matchup in rush_mismatch[:10]:
 		print str(rank) + ') ' + matchup.print_rush()
-		print "    " + matchup.rb()
+		print "   RB: " + matchup.rb()
 		rank += 1
 
 	print "=============== RECEIVING MISMATCHES ==============="
 	rank = 1
 	for matchup in recv_mismatch[:10]:
 		print str(rank) + ') ' + matchup.print_recv()
-		print "    " + matchup.wr()
+		print "   WR: " + matchup.wr()
 		rank += 1
 
