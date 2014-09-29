@@ -229,18 +229,6 @@ def update_teams(teams, team_to_abbr):
 	update_player_stats('rush_off', RUSHING_OFF_FILE, teams, team_to_abbr)
 	update_player_stats('recv_off', RECEIVING_OFF_FILE, teams, team_to_abbr)
 
-def compare_pass(visit_team, home_team, teams):
-	pass 
-
-def compare_rush(visit_team, home_team, teams):
-	visit_rush_off = teams[visit_team].rush_off
-	visit_rush_def = teams[visit_team].rush_def
-	home_rush_off = teams[home_team].rush_off
-	home_rush_def = teams[home_team].rush_def
-
-	print visit_rush_off[0], home_rush_def
-	print home_rush_off[0], visit_rush_def
-
 
 if __name__ == '__main__':
 	team_to_abbr, abbr_to_team = generate_abbr_map(TEAM_NAMES_FILE)
