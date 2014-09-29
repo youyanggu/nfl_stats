@@ -18,18 +18,43 @@ PASSING_OFF_FILE = 'years_2014_passing_passing.csv'
 RUSHING_OFF_FILE = 'years_2014_rushing_rushing_and_receiving.csv'
 RECEIVING_OFF_FILE = 'years_2014_receiving_receiving.csv'
 
+def get_win_pct(record):
+	if '/' in record:
+		w, l, t = [int(i) for i in record.split('/')]
+	elif '-' in record:
+		w, l, t = [int(i) for i in record.split('-')]
+	else:
+		return 0
+	games = w + l + t
+	return round(w * 1.0 / games, 2)
+
+
+def calc_score(off_rank, def_rank, home, win_pct_diff):
+	score = round((off_rank - def_rank) * 1.0 / (off_rank + 5), 2)
+	# Home field advantage
+	if not home:
+		score += abs(score)*0.25
+	# Better team advantage
+	score -= win_pct_diff*(CUR_WEEK / 2.0)
+	return score
+
+
 class Team:
 	def __init__(self, team_abbr, team_name):
 		self.team_abbr = team_abbr
 		self.team_name = team_name
+
 		self.pass_def = None
 		self.rush_def = None
 		self.pass_off = None
 		self.rush_off = None
 		self.recv_off = None
+
 		self.qb = None
 		self.rb = None
 		self.wr = None
+
+		self.win_pct = None
 
 	def set_team_stat(self, col_name, rank):
 		if col_name == 'pass_def':
@@ -53,17 +78,18 @@ class Team:
 			else:
 				raise Exception("Wrong column name")
 
+	def set_win_pct(self, win_pct):
+		if self.win_pct is None:
+			self.win_pct = win_pct
+
 	def __str__(self):
 		return self.team_name + \
+		      "\n    Win %: " + str(self.win_pct) + \
 		      "\n    Pass DEF: " + str(self.pass_def) + \
 		      "\n    Rush DEF: " + str(self.rush_def) + \
 		      "\n    Pass_OFF: " + str(self.pass_off) + \
 		      "\n    Rush OFF: " + str(self.rush_off) + \
 		      "\n    Recv OFF: " + str(self.recv_off)
-
-
-def calc_score(off_rank, def_rank):
-	return round((off_rank - def_rank) * 1.0 / (off_rank + 5), 2)
 
 
 class Matchup:
@@ -72,9 +98,10 @@ class Matchup:
 		self.def_team = def_team
 		self.is_off_at_home = is_off_at_home
 
-		self.pass_score = calc_score(off_team.pass_off, def_team.pass_def)
-		self.rush_score = calc_score(off_team.rush_off, def_team.rush_def)
-		self.recv_score = calc_score(off_team.recv_off, def_team.pass_def)
+		win_pct_diff = off_team.win_pct - def_team.win_pct
+		self.pass_score = calc_score(off_team.pass_off, def_team.pass_def, is_off_at_home, win_pct_diff)
+		self.rush_score = calc_score(off_team.rush_off, def_team.rush_def, is_off_at_home, win_pct_diff)
+		self.recv_score = calc_score(off_team.recv_off, def_team.pass_def, is_off_at_home, win_pct_diff)
 
 	def qb(self):
 		return self.off_team.qb
@@ -190,6 +217,10 @@ def update_player_stats(col_name, fname, teams, team_to_abbr):
 			team_abbr = row[get_index('Tm')]
 			team = teams[team_abbr]
 			team.set_player_stat(col_name, rank, player)
+			if col_name == 'pass_off':
+				record = row[get_index('QBrec')]
+				win_pct = get_win_pct(record)
+				team.set_win_pct(win_pct)
 
 def update_teams(teams, team_to_abbr):
 	update_team_stats('pass_def', PASSING_DEF_FILE, teams, team_to_abbr)
@@ -219,6 +250,9 @@ if __name__ == '__main__':
 	schedule = get_schedule(CUR_WEEK, team_to_abbr, SCHEDULE_FILE)
 	print "Games @ Week " + str(CUR_WEEK) + ": " + str(len(schedule))
 	update_teams(teams, team_to_abbr)
+
+	for team in teams.values():
+		print team
 
 	matchups = []
 	for visit_team, home_team in schedule:
