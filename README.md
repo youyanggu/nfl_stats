@@ -23,6 +23,6 @@ Simple data-driven algorithm to predict weekly passing, rushing, and receiving l
 - Jordy Nelson
 - Antonio Brown
 - Julio Jones
-- *Sleeper Pick:* Delanie Walker
+- *Sleeper Pick:* Kelvin Benjamin
 
 *Reference:* Data downloaded from http://pro-football-reference.com.
