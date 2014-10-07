@@ -8,6 +8,9 @@ Simple data-driven algorithm to predict weekly passing, rushing, and receiving l
 
 import csv
 import operator
+import matplotlib.pyplot as plt
+import numpy as np
+
 from team import Team
 from matchup import Matchup
 
@@ -20,6 +23,9 @@ PASSING_OFF_FILE = 'years_2014_passing_passing.csv'
 RUSHING_OFF_FILE = 'years_2014_rushing_rushing_and_receiving.csv'
 RECEIVING_OFF_FILE = 'years_2014_receiving_receiving.csv'
 STANDINGS_FILE = 'years_2014_standings.csv'
+WEEK_PASSING_FILE = 'week_passing.csv'
+WEEK_RUSHING_FILE = 'week_rushing.csv'
+WEEK_RECEIVING_FILE = 'week_receiving.csv'
 			   	
 
 def generate_abbr_map(fname):
@@ -123,23 +129,97 @@ def update_win_loss_record(fname, teams, team_to_abbr):
 	if count != 32:
 		raise Exception("Missing team")
 
+def get_weekly_stat(fname, teams, team_to_abbr):
+	team_dict = {}
+	def get_index(name):
+		return col_name_to_index[name]
+
+	with open(fname, 'rU') as weekly_file:
+		weekly_reader = csv.reader(weekly_file)
+		col_name_to_index = {}
+		count = 0
+		for row in weekly_reader:
+			if len(row) == 0 or not row[0]:
+				continue
+			if row[0] == 'Rk':
+				for i in range(len(row)):
+					col_name_to_index[row[i]] = i
+			try:
+				rank = int(row[0])
+			except Exception:
+				continue
+			team = row[get_index('Tm')]
+			opp = row[get_index('Opp')]
+			player = row[get_index('Player')]
+			if team not in teams or opp not in teams:
+				continue
+			if team not in team_dict:
+				team_dict[team] = (rank, team, opp, player)
+	return team_dict
 
 def update_teams(teams, team_to_abbr):
-	update_team_stats('pass_def', PASSING_DEF_FILE, teams, team_to_abbr)
-	update_team_stats('rush_def', RUSHING_DEF_FILE, teams, team_to_abbr)
-	update_player_stats('pass_off', PASSING_OFF_FILE, teams, team_to_abbr)
-	update_player_stats('rush_off', RUSHING_OFF_FILE, teams, team_to_abbr)
-	update_player_stats('recv_off', RECEIVING_OFF_FILE, teams, team_to_abbr)
-	update_win_loss_record(STANDINGS_FILE, teams, team_to_abbr)
+	prefix = "week" + str(CUR_WEEK) + "/"
+	update_team_stats('pass_def', prefix+PASSING_DEF_FILE, teams, team_to_abbr)
+	update_team_stats('rush_def', prefix+RUSHING_DEF_FILE, teams, team_to_abbr)
+	update_player_stats('pass_off', prefix+PASSING_OFF_FILE, teams, team_to_abbr)
+	update_player_stats('rush_off', prefix+RUSHING_OFF_FILE, teams, team_to_abbr)
+	update_player_stats('recv_off', prefix+RECEIVING_OFF_FILE, teams, team_to_abbr)
+	update_win_loss_record(prefix+STANDINGS_FILE, teams, team_to_abbr)
 
+
+def analyze_week(teams, team_to_abbr):
+	cur_week_prefix = "week" + str(CUR_WEEK+1) + "/"
+	passing_arr, rushing_arr, receiving_arr = [], [], []
+	passing = get_weekly_stat(cur_week_prefix+WEEK_PASSING_FILE, teams, team_to_abbr)
+	rushing = get_weekly_stat(cur_week_prefix+WEEK_RUSHING_FILE, teams, team_to_abbr)
+	receiving = get_weekly_stat(cur_week_prefix+WEEK_RECEIVING_FILE, teams, team_to_abbr)
+	for rank, team, opp, player in passing.values():
+		# correlation with last week
+		passing_arr.append((rank, teams[team].pass_off))
+		# correlation with pass def rank
+		#passing_arr.append((rank, teams[opp].pass_def))
+		# correlation with diff in win %
+		#passing_arr.append((rank, teams[team].win_pct - teams[opp].win_pct))
+	for rank, team, opp, player in rushing.values():
+		rushing_arr.append((rank, teams[team].rush_off))
+		#rushing_arr.append((rank, teams[opp].rush_def))
+		#rushing_arr.append((rank, teams[team.win_pct - teams[opp].win_pct))
+	for rank, team, opp, player in receiving.values():
+		receiving_arr.append((rank, teams[team].recv_off))
+		#receiving_arr.append((rank, teams[opp].pass_def))
+		#receiving_arr.append((rank, teams[team].win_pct - teams[opp].win_pct))
+	return passing_arr, rushing_arr, receiving_arr
+
+def plot_graphs(passing, rushing, receiving):
+	x,y = zip(*passing)
+	fit = np.polyfit(x, y, 1)
+	fit_fn = np.poly1d(fit)
+	plt.plot(x, y, 'ro', x, fit_fn(x), '--k')
+	plt.title('Passing')
+
+	plt.figure()
+	x,y = zip(*rushing)
+	fit = np.polyfit(x, y, 1)
+	fit_fn = np.poly1d(fit)
+	plt.plot(x, y, 'ro', x, fit_fn(x), '--k')
+	plt.title('Rushing')
+
+	plt.figure()
+	x,y = zip(*receiving)
+	fit = np.polyfit(x, y, 1)
+	fit_fn = np.poly1d(fit)
+	plt.plot(x, y, 'ro', x, fit_fn(x), '--k')
+	plt.title('Receiving')
+	plt.show()
 
 if __name__ == '__main__':
 	team_to_abbr, abbr_to_team = generate_abbr_map(TEAM_NAMES_FILE)
 	teams = {}
 	for abbr in team_to_abbr.values():
 		teams[abbr] = Team(abbr, abbr_to_team[abbr])
-	schedule = get_schedule(CUR_WEEK, team_to_abbr, SCHEDULE_FILE)
-	print "Games @ Week " + str(CUR_WEEK) + ": " + str(len(schedule))
+	next_week = CUR_WEEK + 1
+	schedule = get_schedule(next_week, team_to_abbr, SCHEDULE_FILE)
+	print "Games @ Week " + str(next_week) + ": " + str(len(schedule))
 	update_teams(teams, team_to_abbr)
 
 	for team in teams.values():
@@ -176,4 +256,8 @@ if __name__ == '__main__':
 		print str(rank) + ') ' + matchup.print_recv()
 		print "   WR: " + matchup.wr()
 		rank += 1
+
+	#passing_arr, rushing_arr, receiving_arr = analyze_week(teams, team_to_abbr)
+	#plot_graphs(passing_arr, rushing_arr, receiving_arr)
+
 

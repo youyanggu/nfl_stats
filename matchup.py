@@ -19,12 +19,12 @@ class Matchup:
 
 
 	def calc_score(self, off_rank, def_rank):
-		score = (def_rank - off_rank) * 1.0 / (off_rank + 5)
+		score = (def_rank - off_rank) * 1.0 / (off_rank + 4)
 		# Home field advantage
 		if not self.is_off_at_home:
-			score -= abs(score)*0.25
+			score -= abs(score)*0.1
 		# Better team advantage
-		score += self.win_pct_diff*(self.week / 5.0)
+		score += self.win_pct_diff*(self.week / 10.0)
 		return round(score, 2)
 
 	def qb(self):
