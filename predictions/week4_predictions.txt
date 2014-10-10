@@ -1,0 +1,462 @@
+Games @ Week 4: 13
+Minnesota Vikings
+    Win %: 0.33
+    Pass DEF: 12
+    Rush DEF: 15
+    Pass_OFF: 33
+    Rush OFF: 45
+    Recv OFF: 54
+Miami Dolphins
+    Win %: 0.33
+    Pass DEF: 7
+    Rush DEF: 20
+    Pass_OFF: 26
+    Rush OFF: 9
+    Recv OFF: 22
+Carolina Panthers
+    Win %: 0.5
+    Pass DEF: 8
+    Rush DEF: 27
+    Pass_OFF: 8
+    Rush OFF: 48
+    Recv OFF: 10
+Atlanta Falcons
+    Win %: 0.67
+    Pass DEF: 24
+    Rush DEF: 19
+    Pass_OFF: 2
+    Rush OFF: 23
+    Recv OFF: 1
+Oakland Raiders
+    Win %: 0.0
+    Pass DEF: 4
+    Rush DEF: 31
+    Pass_OFF: 29
+    Rush OFF: 40
+    Recv OFF: 27
+Cincinnati Bengals
+    Win %: 1.0
+    Pass DEF: 17
+    Rush DEF: 18
+    Pass_OFF: 15
+    Rush OFF: 16
+    Recv OFF: 17
+New York Jets
+    Win %: 0.33
+    Pass DEF: 9
+    Rush DEF: 1
+    Pass_OFF: 17
+    Rush OFF: 14
+    Recv OFF: 47
+Denver Broncos
+    Win %: 0.67
+    Pass DEF: 31
+    Rush DEF: 13
+    Pass_OFF: 7
+    Rush OFF: 21
+    Recv OFF: 3
+Baltimore Ravens
+    Win %: 0.67
+    Pass DEF: 25
+    Rush DEF: 8
+    Pass_OFF: 14
+    Rush OFF: 15
+    Recv OFF: 7
+New York Giants
+    Win %: 0.5
+    Pass DEF: 22
+    Rush DEF: 9
+    Pass_OFF: 13
+    Rush OFF: 4
+    Recv OFF: 19
+Detroit Lions
+    Win %: 0.67
+    Pass DEF: 3
+    Rush DEF: 2
+    Pass_OFF: 5
+    Rush OFF: 35
+    Recv OFF: 4
+Tennessee Titans
+    Win %: 0.33
+    Pass DEF: 2
+    Rush DEF: 24
+    Pass_OFF: 20
+    Rush OFF: 26
+    Recv OFF: 16
+Dallas Cowboys
+    Win %: 0.67
+    Pass DEF: 21
+    Rush DEF: 16
+    Pass_OFF: 21
+    Rush OFF: 1
+    Recv OFF: 12
+New England Patriots
+    Win %: 0.67
+    Pass DEF: 1
+    Rush DEF: 12
+    Pass_OFF: 25
+    Rush OFF: 18
+    Recv OFF: 8
+Seattle Seahawks
+    Win %: 0.67
+    Pass DEF: 20
+    Rush DEF: 4
+    Pass_OFF: 22
+    Rush OFF: 6
+    Recv OFF: 86
+Chicago Bears
+    Win %: 0.67
+    Pass DEF: 15
+    Rush DEF: 26
+    Pass_OFF: 12
+    Rush OFF: 29
+    Recv OFF: 21
+Tampa Bay Buccaneers
+    Win %: 0.0
+    Pass DEF: 23
+    Rush DEF: 21
+    Pass_OFF: 34
+    Rush OFF: 13
+    Recv OFF: 57
+Buffalo Bills
+    Win %: 0.67
+    Pass DEF: 26
+    Rush DEF: 5
+    Pass_OFF: 28
+    Rush OFF: 25
+    Recv OFF: 40
+Jacksonville Jaguars
+    Win %: 0.0
+    Pass DEF: 32
+    Rush DEF: 32
+    Pass_OFF: 30
+    Rush OFF: 52
+    Recv OFF: 31
+St. Louis Rams
+    Win %: 0.5
+    Pass DEF: 5
+    Rush DEF: 29
+    Pass_OFF: 11
+    Rush OFF: 17
+    Recv OFF: 15
+Cleveland Browns
+    Win %: 0.33
+    Pass DEF: 27
+    Rush DEF: 28
+    Pass_OFF: 16
+    Rush OFF: 12
+    Recv OFF: 13
+Houston Texans
+    Win %: 0.67
+    Pass DEF: 18
+    Rush DEF: 25
+    Pass_OFF: 24
+    Rush OFF: 2
+    Recv OFF: 18
+Washington Redskins
+    Win %: 0.0
+    Pass DEF: 16
+    Rush DEF: 7
+    Pass_OFF: 3
+    Rush OFF: 5
+    Recv OFF: 14
+Green Bay Packers
+    Win %: 0.33
+    Pass DEF: 6
+    Rush DEF: 30
+    Pass_OFF: 18
+    Rush OFF: 39
+    Recv OFF: 2
+Philadelphia Eagles
+    Win %: 1.0
+    Pass DEF: 30
+    Rush DEF: 14
+    Pass_OFF: 1
+    Rush OFF: 19
+    Recv OFF: 6
+Pittsburgh Steelers
+    Win %: 0.67
+    Pass DEF: 11
+    Rush DEF: 22
+    Pass_OFF: 9
+    Rush OFF: 3
+    Recv OFF: 5
+Kansas City Chiefs
+    Win %: 0.33
+    Pass DEF: 10
+    Rush DEF: 23
+    Pass_OFF: 23
+    Rush OFF: 8
+    Recv OFF: 41
+San Francisco 49ers
+    Win %: 0.33
+    Pass DEF: 14
+    Rush DEF: 6
+    Pass_OFF: 19
+    Rush OFF: 28
+    Recv OFF: 29
+San Diego Chargers
+    Win %: 0.67
+    Pass DEF: 13
+    Rush DEF: 11
+    Pass_OFF: 10
+    Rush OFF: 41
+    Recv OFF: 32
+Indianapolis Colts
+    Win %: 0.33
+    Pass DEF: 28
+    Rush DEF: 17
+    Pass_OFF: 4
+    Rush OFF: 22
+    Recv OFF: 28
+Arizona Cardinals
+    Win %: 1.0
+    Pass DEF: 19
+    Rush DEF: 3
+    Pass_OFF: 27
+    Rush OFF: 11
+    Recv OFF: 11
+New Orleans Saints
+    Win %: 0.33
+    Pass DEF: 29
+    Rush DEF: 10
+    Pass_OFF: 6
+    Rush OFF: 7
+    Recv OFF: 9
+=============== PASSING MISMATCHES ===============
+1) PHI O vs. SFO D (H)
+    Pass Score: 2.96 (1 vs 14)
+    Nick Foles
+2) SDG O (H) vs. JAX D
+    Pass Score: 2.81 (10 vs 32)
+    Philip Rivers
+3) PIT O (H) vs. TAM D
+    Pass Score: 2.34 (9 vs 23)
+    Ben Roethlisberger
+4) ATL O vs. MIN D (H)
+    Pass Score: 1.75 (2 vs 12)
+    Matt Ryan
+5) WAS O (H) vs. NYG D
+    Pass Score: 1.38 (3 vs 22)
+    Kirk Cousins
+6) NYG O vs. WAS D (H)
+    Pass Score: 1.13 (13 vs 16)
+    Eli Manning
+7) DAL O (H) vs. NOR D
+    Pass Score: 0.99 (21 vs 29)
+    Tony Romo
+8) DET O vs. NYJ D (H)
+    Pass Score: 0.98 (5 vs 9)
+    Matthew Stafford
+9) CAR O vs. BAL D (H)
+    Pass Score: 0.64 (8 vs 25)
+    Cam Newton
+10) NOR O vs. DAL D (H)
+    Pass Score: 0.34 (6 vs 21)
+    Drew Brees
+11) CHI O (H) vs. GNB D
+    Pass Score: 0.33 (12 vs 6)
+    Jay Cutler
+12) TEN O vs. IND D (H)
+    Pass Score: 0.24 (20 vs 28)
+    Jake Locker
+13) HOU O (H) vs. BUF D
+    Pass Score: 0.07 (24 vs 26)
+    Ryan Fitzpatrick
+14) NWE O vs. KAN D (H)
+    Pass Score: 0.06 (25 vs 10)
+    Tom Brady
+15) BAL O (H) vs. CAR D
+    Pass Score: 0.02 (14 vs 8)
+    Joe Flacco
+16) IND O (H) vs. TEN D
+    Pass Score: -0.22 (4 vs 2)
+    Andrew Luck
+17) MIA O vs. OAK D (H)
+    Pass Score: -0.23 (26 vs 4)
+    Ryan Tannehill
+18) BUF O vs. HOU D (H)
+    Pass Score: -0.38 (28 vs 18)
+    EJ Manuel
+19) GNB O vs. CHI D (H)
+    Pass Score: -0.84 (18 vs 15)
+    Aaron Rodgers
+20) SFO O (H) vs. PHI D
+    Pass Score: -0.88 (19 vs 30)
+    Colin Kaepernick
+21) MIN O (H) vs. ATL D
+    Pass Score: -0.92 (33 vs 24)
+    Matt Cassel
+22) OAK O (H) vs. MIA D
+    Pass Score: -1.31 (29 vs 7)
+    Derek Carr
+23) NYJ O (H) vs. DET D
+    Pass Score: -1.32 (17 vs 3)
+    Geno Smith
+24) KAN O (H) vs. NWE D
+    Pass Score: -1.47 (23 vs 1)
+    Alex Smith
+25) JAX O vs. SDG D (H)
+    Pass Score: -1.95 (30 vs 13)
+    Chad Henne
+26) TAM O vs. PIT D (H)
+    Pass Score: -2.08 (34 vs 11)
+    Josh McCown
+=============== RUSHING MISMATCHES ===============
+1) PIT O (H) vs. TAM D
+    Rush Score: 3.59 (3 vs 21)
+    Le'Veon Bell
+2) DAL O (H) vs. NOR D
+    Rush Score: 2.18 (1 vs 10)
+    DeMarco Murray
+3) MIA O vs. OAK D (H)
+    Rush Score: 1.84 (9 vs 31)
+    Lamar Miller
+4) NYG O vs. WAS D (H)
+    Rush Score: 1.25 (4 vs 7)
+    Rashad Jennings
+5) SDG O (H) vs. JAX D
+    Rush Score: 1.14 (41 vs 32)
+    Ryan Mathews
+6) BAL O (H) vs. CAR D
+    Rush Score: 0.94 (15 vs 27)
+    Justin Forsett
+7) NWE O vs. KAN D (H)
+    Rush Score: 0.84 (18 vs 23)
+    Stevan Ridley
+8) CHI O (H) vs. GNB D
+    Rush Score: 0.71 (29 vs 30)
+    Matt Forte
+9) PHI O vs. SFO D (H)
+    Rush Score: 0.66 (19 vs 6)
+    LeSean McCoy
+10) HOU O (H) vs. BUF D
+    Rush Score: 0.43 (2 vs 5)
+    Arian Foster
+11) ATL O vs. MIN D (H)
+    Rush Score: 0.32 (23 vs 15)
+    Steven Jackson
+12) IND O (H) vs. TEN D
+    Rush Score: 0.07 (22 vs 24)
+    Trent Richardson
+13) BUF O vs. HOU D (H)
+    Rush Score: -0.0 (25 vs 25)
+    C.J. Spiller
+14) NOR O vs. DAL D (H)
+    Rush Score: -0.12 (7 vs 16)
+    Mark Ingram
+15) TEN O vs. IND D (H)
+    Rush Score: -0.36 (26 vs 17)
+    Shonn Greene
+16) KAN O (H) vs. NWE D
+    Rush Score: -0.37 (8 vs 12)
+    Knile Davis
+17) DET O vs. NYJ D (H)
+    Rush Score: -0.38 (35 vs 1)
+    Joique Bell
+18) WAS O (H) vs. NYG D
+    Rush Score: -0.6 (5 vs 9)
+    Alfred Morris
+19) TAM O vs. PIT D (H)
+    Rush Score: -0.97 (13 vs 22)
+    Bobby Rainey
+20) GNB O vs. CHI D (H)
+    Rush Score: -1.05 (39 vs 26)
+    Eddie Lacy
+21) OAK O (H) vs. MIA D
+    Rush Score: -1.1 (40 vs 20)
+    Darren McFadden
+22) MIN O (H) vs. ATL D
+    Rush Score: -1.2 (45 vs 19)
+    Cordarrelle Patterson
+23) CAR O vs. BAL D (H)
+    Rush Score: -1.28 (48 vs 8)
+    Jonathan Stewart
+24) NYJ O (H) vs. DET D
+    Rush Score: -1.31 (14 vs 2)
+    Chris Ivory
+25) SFO O (H) vs. PHI D
+    Rush Score: -1.76 (28 vs 14)
+    Frank Gore
+26) JAX O vs. SDG D (H)
+    Rush Score: -2.24 (52 vs 11)
+    Toby Gerhart
+=============== RECEIVING MISMATCHES ===============
+1) PIT O (H) vs. TAM D
+    Recv Score: 3.14 (5 vs 23)
+    Antonio Brown
+2) ATL O vs. MIN D (H)
+    Recv Score: 2.06 (1 vs 12)
+    Julio Jones
+3) PHI O vs. SFO D (H)
+    Recv Score: 1.89 (6 vs 14)
+    Jeremy Maclin
+4) DAL O (H) vs. NOR D
+    Recv Score: 1.68 (12 vs 29)
+    Dez Bryant
+5) SDG O (H) vs. JAX D
+    Recv Score: 1.34 (32 vs 32)
+    Antonio Gates
+6) DET O vs. NYJ D (H)
+    Recv Score: 1.1 (4 vs 9)
+    Calvin Johnson
+7) NYG O vs. WAS D (H)
+    Recv Score: 0.84 (19 vs 16)
+    Victor Cruz
+8) NWE O vs. KAN D (H)
+    Recv Score: 0.8 (8 vs 10)
+    Julian Edelman
+9) GNB O vs. CHI D (H)
+    Recv Score: 0.71 (2 vs 15)
+    Jordy Nelson
+10) TEN O vs. IND D (H)
+    Recv Score: 0.43 (16 vs 28)
+    Delanie Walker
+11) BAL O (H) vs. CAR D
+    Recv Score: 0.42 (7 vs 8)
+    Steve Smith
+12) CAR O vs. BAL D (H)
+    Recv Score: 0.41 (10 vs 25)
+    Kelvin Benjamin
+13) HOU O (H) vs. BUF D
+    Recv Score: 0.35 (18 vs 26)
+    DeAndre Hopkins
+14) CHI O (H) vs. GNB D
+    Recv Score: 0.1 (21 vs 6)
+    Alshon Jeffery
+15) NOR O vs. DAL D (H)
+    Recv Score: -0.04 (9 vs 21)
+    Jimmy Graham
+16) MIA O vs. OAK D (H)
+    Recv Score: -0.17 (22 vs 4)
+    Mike Wallace
+17) WAS O (H) vs. NYG D
+    Recv Score: -0.58 (14 vs 22)
+    Niles Paul
+18) BUF O vs. HOU D (H)
+    Recv Score: -0.61 (40 vs 18)
+    Sammy Watkins
+19) IND O (H) vs. TEN D
+    Recv Score: -0.79 (28 vs 2)
+    Reggie Wayne
+20) MIN O (H) vs. ATL D
+    Recv Score: -1.19 (54 vs 24)
+    Cordarrelle Patterson
+21) OAK O (H) vs. MIA D
+    Recv Score: -1.29 (27 vs 7)
+    James Jones
+22) SFO O (H) vs. PHI D
+    Recv Score: -1.31 (29 vs 30)
+    Michael Crabtree
+23) NYJ O (H) vs. DET D
+    Recv Score: -1.53 (47 vs 3)
+    Eric Decker
+24) KAN O (H) vs. NWE D
+    Recv Score: -1.55 (41 vs 1)
+    Travis Kelce
+25) JAX O vs. SDG D (H)
+    Recv Score: -1.97 (31 vs 13)
+    Allen Hurns
+26) TAM O vs. PIT D (H)
+    Recv Score: -2.27 (57 vs 11)
+    Mike Evans
