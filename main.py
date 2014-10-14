@@ -14,7 +14,8 @@ import numpy as np
 from team import Team
 from matchup import Matchup
 
-CUR_WEEK = 5
+CUR_WEEK = 6
+CUTOFF_WEEK = 3
 TEAM_NAMES_FILE = 'team_names.csv'
 SCHEDULE_FILE = 'years_2014_games_games_left.csv'
 PASSING_DEF_FILE = 'years_2014_opp_passing.csv'
@@ -64,10 +65,10 @@ def update_team_stats(col_name, fname, teams, team_to_abbr):
 	def get_index(name):
 		return col_name_to_index[name]
 
-	with open(fname, 'rU') as pass_def_file:
-		pass_def_reader = csv.reader(pass_def_file)
+	with open(fname, 'rU') as team_file:
+		reader = csv.reader(team_file)
 		col_name_to_index = {}
-		for row in pass_def_reader:
+		for row in reader:
 			if len(row) == 0:
 				continue
 			if row[0] == 'Rk':
@@ -85,10 +86,10 @@ def update_player_stats(col_name, fname, teams, team_to_abbr):
 	def get_index(name):
 		return col_name_to_index[name]
 
-	with open(fname, 'rU') as pass_def_file:
-		pass_def_reader = csv.reader(pass_def_file)
+	with open(fname, 'rU') as player_file:
+		reader = csv.reader(player_file)
 		col_name_to_index = {}
-		for row in pass_def_reader:
+		for row in reader:
 			if len(row) == 0:
 				continue
 			if row[0] == 'Rk':
@@ -100,8 +101,13 @@ def update_player_stats(col_name, fname, teams, team_to_abbr):
 				continue
 			player = row[get_index('Player')]
 			team_abbr = row[get_index('Tm')]
+			if int(row[get_index('G')]) < CUTOFF_WEEK:
+				print player
+				# we ignore players who miss too many games
+				continue
 			if 'TM' in team_abbr:
-				continue # we ignore a player on multiple teams for now
+				# we ignore a player on multiple teams for now
+				continue
 			team = teams[team_abbr]
 			team.set_player_stat(col_name, rank, player)
 
